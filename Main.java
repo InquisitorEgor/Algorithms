@@ -1,82 +1,85 @@
-package SecondHomework;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
+package Lesson3;
 
 public class Main {
-
     public static void main(String[] args) {
-
-        int arr1[] = new int[10000];
-        int arr2[] = new int[10000];
-        int arr3[] = new int[10000];
-        int array[] = {4, 5, 35, 2, 55, 22, 32, 53, 25, 1, 67, 72};
-        testArrayImpl(arr1, arr2, arr3, array);
+        //TestLinkedList();
+        //TestTwoSideLinkedList();
+        TestLinkedListIterator();
     }
 
-    private static void testArrayImpl(int arr1[], int arr2[], int arr3[], int array[]) {
-        Array array0 = new ArrayImpl(array, 0);
+    private static void TestLinkedList() {
+        LinkedList linkedList = new SimpleLinkedListImpl();
+        linkedList.add(0);
+        linkedList.add(1);
+        linkedList.add(2);
+        linkedList.add(3);
+        linkedList.add(4);
+        linkedList.add(5);
 
-        System.out.println("Array output:");
-        array0.Input();
-        array0.Output();
-        System.out.println("Array output with added element:");
-        array0.add(30);
-        array0.Output();
-        System.out.println("Is there this element - " + array0.indexOf(30));
-        System.out.println("Deleting element -  " + array0.remove(30));
-        array0.Output();
-        System.out.println("-------------------------");
+        System.out.println("Size: " + linkedList.getSize());
+        linkedList.display();
+        linkedList.remove(4);
+        linkedList.remove();
+        linkedList.display();
+        System.out.println(linkedList.find(7));
+    }
 
-        InputForRandom(arr1, arr2, arr3);
-        Array array1 = new ArrayImpl(arr1, 0);
-        Array array2 = new ArrayImpl(arr2, 0);
-        Array array3 = new ArrayImpl(arr3, 0);
-        System.out.println("Arr1: ");
-        array1.Input();
-        //array1.Output();
-        System.out.println("-------------------------");
-        System.out.println("Arr2: ");
-        array2.Input();
-        //array2.Output();
-        System.out.println("-------------------------");
-        System.out.println("Arr3: ");
-        array3.Input();
-        //array3.Output();
-        System.out.println("Bubble sort: ");
-        long start1 = System.nanoTime();
-        array1.sortBubble();
-        long finish1 = System.nanoTime();
-        //array1.Output();
-        System.out.println("Time: "+TimeUnit.NANOSECONDS.toMillis(finish1 - start1));
-        System.out.println("-------------------------");
-        System.out.println("Selection sort: ");
-        long start2 = System.nanoTime();
-        array2.sortSelect();
-        long finish2 = System.nanoTime();
-        //array2.Output();
-        System.out.println("Time: "+TimeUnit.NANOSECONDS.toMillis(finish2 - start2));
-        System.out.println("-------------------------");
-        System.out.println("Insertion sort: ");
-        long start3 = System.nanoTime();
-        array3.sortInsert();
-        long finish3 = System.nanoTime();
-        //array3.Output();
-        System.out.println("Time: "+TimeUnit.NANOSECONDS.toMillis(finish3 - start3));
+    private static void TestTwoSideLinkedList() {
+        TwoSideLinkedList twoSideLinkedList = new TwoSideLinkedListImpl();
+        twoSideLinkedList.addFirst(3);
+        twoSideLinkedList.addFirst(2);
+        twoSideLinkedList.addFirst(1);
+        twoSideLinkedList.addLast(4);
+        twoSideLinkedList.addLast(5);
+
+        System.out.println("Size = " + twoSideLinkedList.getSize());
+
+        twoSideLinkedList.display();
+
+        twoSideLinkedList.remove();
+        twoSideLinkedList.remove(1);
+
+        twoSideLinkedList.display();
+    }
+
+    private static void TestLinkedListIterator() {
+        SimpleLinkedListImpl simpleLinkedList = new SimpleLinkedListImpl();
+        ListIterator listIterator = new LinkedListIterator(simpleLinkedList);
+        listIterator.reset();
+        simpleLinkedList.add(6);
+        simpleLinkedList.add(5);
+        simpleLinkedList.add(4);
+        simpleLinkedList.add(3);
+        simpleLinkedList.add(2);
+        simpleLinkedList.add(1);
+        simpleLinkedList.display();//1,2,3,4,5,6
+
+
+        display(listIterator);
+
+        listIterator.reset();
+        listIterator.insertAfter(11);
+        simpleLinkedList.display();//1,11,2,3,4,5,6
+        listIterator.next();
+        listIterator.insertBefore(13);
+        simpleLinkedList.display();//1,11,13,2,3,4,5,6
+        System.out.println("The iterator is at "+listIterator.getCurrent());
+        listIterator.next();
+        listIterator.next();
+        listIterator.next();
+        listIterator.next();
+        System.out.println("Is iterator at End?? "+listIterator.atEnd());
+        listIterator.next();
+        System.out.println("Is iterator at End? "+listIterator.atEnd());
+
 
 
     }
-
-    private static void InputForRandom(int arr1[], int arr2[], int arr3[]) {
-        for (int i = 0; i < arr1.length; i++) {
-            Random rand = new Random();
-            int r = rand.nextInt(100);
-            arr1[i] = r;
-            arr2[i] = r;
-            arr3[i] = r;
-
+    public static void display(ListIterator listIterator){
+        System.out.println("--------Iterator Display--------");
+        listIterator.reset();
+        while (listIterator.hasNext()) {
+            System.out.println(listIterator.next());
         }
     }
 }
