@@ -32,9 +32,9 @@ public class Main {
     }
     private static double exponentiation(double digit, int rank) {
         if (rank < 0) {
-            return 1.0D / (digit * exponentiation(digit, -rank - 1));
+            return 1 / (digit * exponentiation(digit, -rank - 1));
         } else {
-            return rank > 0 ? digit * exponentiation(digit, rank - 1) : 1.0D;
+            return rank > 0 ? digit * exponentiation(digit, rank - 1) : 1;
         }
     }
 }
