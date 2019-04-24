@@ -1,30 +1,73 @@
-package Lesson3;
+package six;
 
 public class Node {
-    private final int data;
-    private Node nextElement;
 
-    public Node(int data) {
-        this.data = data;
+    private final int value;
+
+    private int level;
+
+    private Node leftChild;
+    private Node rightChild;
+
+    public Node(int value) {
+        this.value = value;
     }
 
-    public int getData() {
-        return data;
+    public int getValue() {
+        return value;
     }
 
-    public Node getNextElement() {
-        return nextElement;
+    public Node getLeftChild() {
+        return leftChild;
     }
 
-    public void setNextElement(Node nextElement) {
-
-        this.nextElement = nextElement;
+    public void setLeftChild(Node leftChild) {
+        this.leftChild = leftChild;
     }
 
-    @Override
-    public String toString() {
-        return "Node{" +
-                "data=" + data +
-                '}';
+    public Node getRightChild() {
+        return rightChild;
     }
+
+    public void setRightChild(Node rightChild) {
+        this.rightChild = rightChild;
+    }
+
+    public boolean isShouldLeft(int value) {
+        return value < this.value;
+    }
+
+    public Node getChild(int value) {
+        return isShouldLeft(value) ? getLeftChild() : getRightChild();
+    }
+
+    void addChild(Node child) {
+        if (isShouldLeft(child.getValue())) {
+            setLeftChild(child);
+        }
+        else {
+            setRightChild(child);
+        }
+    }
+
+    public void display() {
+        System.out.println(value);
+    }
+
+    boolean isLeaf() {
+        return getLeftChild() == null && getRightChild() == null;
+    }
+    boolean hasOnlyOneChild() {
+        return getLeftChild() == null ^ getRightChild() == null;
+    }
+
+    void removeChild(Node child) {
+        if (leftChild == child) {
+            leftChild = null;
+        }
+        else {
+            rightChild = null;
+        }
+    }
+
 }
